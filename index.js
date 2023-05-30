@@ -46,12 +46,14 @@ app.post('/add-user',async (req,res)=>{
     }   
 })
 
-app.get('/match',async (req,res)=>{
+app.get('/match/:id',async (req,res)=>{
     const data = await users.find()
+    const new_data = await data.filter(element => element.id != req.params.id)
+    const user = await data.filter(element => element.id == req.params.id)
     result=[]
-    for(let i=0;i<me['hobbies'].length;i++){
-        data.forEach(element => {
-            if(element.hobbies.includes(me.hobbies[i]) && !(result.includes(element))==true){
+    for(let i=0;i<user[0].hobbies.length;i++){
+        new_data.forEach(element => {
+            if(element.hobbies.includes(user[0].hobbies[i]) && !(result.includes(element))==true){
                 result.push(element)  
             }
         });
